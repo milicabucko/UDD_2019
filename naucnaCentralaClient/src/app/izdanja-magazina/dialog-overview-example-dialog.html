@@ -1,0 +1,11 @@
+
+<h1 mat-dialog-title>Zdravo {{data.korisnik.ime}} {{data.korisnik.prezime}} {{data.cena}}</h1>
+<div mat-dialog-content>
+    <p>Molimo odaberite nacin placanja</p>
+  </div>
+<div mat-dialog-actions>   
+  <button mat-button>Kartica</button>
+  <button mat-button (click)="kupiIzdanje(data.id, data.cena,data.korisnik.id)">PayPal</button>
+  <button mat-button>BitCoin</button>
+
+</div>

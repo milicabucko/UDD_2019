@@ -1,0 +1,28 @@
+<div id="card-container">
+<mat-card class="example-card" *ngFor="let rad of radovi">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title><i>{{rad.magazin.naziv}}</i></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <i>Ime magazina: </i> <b>{{rad.magazin.naziv}}</b> <br>
+        <i>Naucna oblast:</i> <b>{{rad.rad.naucnaOblast}}</b> <br>
+        <i>Mesec: </i> <b>{{rad.izdanjeMagazina.mesec}}</b> <br>
+        <i>Clanarina:</i> 
+        <div *ngIf="rad.rad.besplatan; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock><b>Besplatan</b></ng-template>
+        <ng-template #elseBlock><b>Obavezna clanarina</b></ng-template> <br>
+        <i>Cena:</i>
+        <div *ngIf="rad.rad.besplatan; then thenBlock2 else elseBlock2"></div>
+        <ng-template #thenBlock2><b>/</b></ng-template>
+        <ng-template #elseBlock2><b>{{rad.rad.cena}}</b></ng-template> <br>
+        <i>Koautori: </i> <b>{{rad.rad.koautori}}</b> <br>
+        <i>Kljucni pojmovi: </i> <b>{{rad.rad.kljucniPojmovi}}</b> <br>
+    </mat-card-content>
+    <mat-card-actions>
+      <button [disabled] = "!rad.kupiRad" (click)="kupiRad(rad.rad.id, rad.cena)" mat-button>Kupi rad</button>
+      <button [disabled] = "!rad.preuzmiRad" mat-button>Preuzmi rad</button>
+    </mat-card-actions>
+    
+  </mat-card>
+</div>

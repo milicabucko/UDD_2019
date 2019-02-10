@@ -1,0 +1,33 @@
+<div id="card-container">
+<mat-card class="example-card" *ngFor="let magazin of magazini">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title><i>{{magazin.magazin.naziv}}</i></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div id="img-style">
+      <img  mat-card-image src="{{magazin.magazin.slika}}" alt="Photo"></div> <br>
+     
+      <i>Ime: </i> <b>{{magazin.magazin.naziv}}</b> <br>
+      <i>Clanarina:</i> 
+      <div *ngIf="magazin.magazin.openAccess; then thenBlock else elseBlock"></div>
+      <ng-template #thenBlock><b>Obavezna clanarina</b> <br>
+      <i>Clanstvo:</i> 
+      <div *ngIf="magazin.placenaClanarina; then thenBlock2 else elseBlock2"></div>
+      <ng-template #thenBlock2><b>Placeno</b></ng-template>
+      <ng-template #elseBlock2><b>Nije placeno</b></ng-template>
+      </ng-template>
+      <ng-template #elseBlock><b>Besplatan</b></ng-template><br>
+     
+      
+
+  </mat-card-content>
+  <mat-card-actions>
+    <div>
+    <button [disabled] = "!magazin.postaviRad" mat-button>Posalji rad</button>
+    <button [disabled] = "!magazin.platiClanarinu" (click)="platiClanarinu()"mat-button>Plati clanarinu</button></div>
+  </mat-card-actions>
+  
+</mat-card>
+
+</div>

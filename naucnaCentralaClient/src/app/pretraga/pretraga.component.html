@@ -1,0 +1,131 @@
+
+<br>
+<mat-select placeholder="Vrsta pretrage" [(ngModel)]="vrstaPretrage">
+  <mat-option *ngFor="let vrsta of vrste" [value]="vrsta.value">
+    {{ vrsta.viewValue }}
+  </mat-option>
+</mat-select>
+
+<br>
+<br>
+
+<div [hidden] = "vrstaPretrage == 'boolean'">
+  <form [formGroup]="searchScientificWorkForm" (submit)="searchScientificWork()">
+
+
+    <div class="form-group">
+      <mat-select placeholder="Pretrazi po" formControlName="tip">
+        <mat-option *ngFor="let tip of tipovi" [value]="tip.value">
+          {{ tip.viewValue }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput
+          placeholder="Naziv"
+          class="form-control"
+          formControlName="userInput"
+        >
+      </mat-form-field>
+    </div>
+    <br>
+    <br>
+    
+    <button mat-button type="submit" [disabled] = "!searchScientificWorkForm.valid">Pretrazi</button>
+
+  </form>
+</div>
+
+<div [hidden] = "vrstaPretrage == 'phrase'">
+  <form [formGroup]="searchBooleanScientificWorkForm" (submit)="searchBooleanScientificWork()">
+
+    <br>
+
+    <div class="form-group">
+      <mat-select placeholder="Prvi parametar" formControlName="prviParametar">
+        <mat-option *ngFor="let tip of tipovi" [value]="tip.value">
+          {{ tip.viewValue }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput
+          placeholder="Unesite rec"
+          class="form-control"
+          formControlName="prviParametarVrednost"
+        >
+      </mat-form-field>
+    </div>
+    <br>
+    <br>
+
+    <div class="form-group">
+      <mat-select placeholder="Operator" formControlName="operator">
+        <mat-option *ngFor="let op of operatori" [value]="op.value">
+          {{ op.viewValue }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <br>
+    <br>
+    <div class="form-group">
+      <mat-select placeholder="Drugi parametar" formControlName="drugiParametar">
+        <mat-option *ngFor="let tip of tipovi" [value]="tip.value">
+          {{ tip.viewValue }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput
+          placeholder="Unesite rec"
+          class="form-control"
+          formControlName="drugiParametarVrednost"
+        >
+      </mat-form-field>
+    </div>
+    <br>
+    <br>
+
+    
+    <button mat-button type="submit" [disabled] = "!searchBooleanScientificWorkForm.valid">Pretrazi</button>
+
+  </form>
+</div>
+
+<div *ngFor="let result of results">
+    
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar></div>
+      <mat-card-title><i>{{result.title}}</i></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <i>Naucna oblast:</i> <b>{{result.category}}</b> <br>
+        <i>Kljucne reci: </i> <b>{{result.keywords}}</b> <br>
+        <i>Autor: </i> <b>{{result.author}}</b> <br><br>
+        <div [innerHTML]="result.highlight"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button [disabled] = "result.openAccess" mat-button>Kupi rad</button>
+      <button [disabled] = "!result.openAccess" (click)="download(result)" mat-button>Preuzmi rad</button>
+    </mat-card-actions> 
+  </mat-card>
+
+  
+
+</div>
+
